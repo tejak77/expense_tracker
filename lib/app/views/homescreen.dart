@@ -267,16 +267,16 @@ class Homescreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          shape: CircleBorder(),
+          shape: const CircleBorder(),
           backgroundColor: Colors.blue,
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
             size: 33,
           ),
           onPressed: () {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavigationBar(items: [
+      bottomNavigationBar: BottomNavigationBar(items: const [
         BottomNavigationBarItem(
           label: '',
           icon: Icon(
