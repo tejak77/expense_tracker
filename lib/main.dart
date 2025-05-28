@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/views/add_transactions.dart';
 import 'package:expense_tracker/app/views/homescreen.dart';
-import 'package:expense_tracker/authentication/views/loginscreen.dart';
+import 'package:expense_tracker/app/views/manage_balance.dart';
+import 'package:expense_tracker/app/views/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddTransactions(),
+      home: Profile(),
     );
   }
 }
