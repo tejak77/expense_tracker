@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/views/add_transactions.dart';
 import 'package:expense_tracker/app/views/manage_balance.dart';
+import 'package:expense_tracker/app/views/profile.dart';
 import 'package:expense_tracker/constant/colors.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,17 @@ class Homescreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(
-                  Appimage.profile,
-                  scale: 2,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Profile()));
+                  },
+                  child: Image.asset(
+                    Appimage.profile,
+                    scale: 2,
+                  ),
                 ),
                 const SizedBox(
                   width: 6,

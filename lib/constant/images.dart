@@ -4,4 +4,5 @@ class Appimage {
   static const String cross = "assets/images/bitcoin-icons_cross-filled.png";
   static const String categoryicon = "assets/images/bxs_category.png";
   static const String calendericon = "assets/images/uis_calender.png";
+  static const String myprofileimage = "assets/images/Ellipse 9.png";
 }
