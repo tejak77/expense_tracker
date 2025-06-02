@@ -12,9 +12,9 @@ class Authprovider extends ChangeNotifier {
       await prefs.setString('phoneno', phonenumber.toString());
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Homescreen()));
+          context, MaterialPageRoute(builder: (context) => const Homescreen()));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Enter correct details"),
       ));
     }

@@ -13,8 +13,8 @@ class Bottomnavbar extends StatefulWidget {
 class _BottomnavbarState extends State<Bottomnavbar> {
   int __selectedIndex = 0;
   final List<Widget> _screens = [
-    Homescreen(),
-    Profile(),
+    const Homescreen(),
+    const Profile(),
   ];
   void _onitemtapped(int index) {
     setState(() {
@@ -36,7 +36,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
           ),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddTransactions()));
+                MaterialPageRoute(builder: (context) => const AddTransactions()));
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(

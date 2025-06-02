@@ -1,4 +1,3 @@
-import 'package:expense_tracker/app/views/homescreen.dart';
 import 'package:expense_tracker/authentication/provider/authprovider.dart';
 import 'package:expense_tracker/authentication/views/signupscreen.dart';
 import 'package:flutter/material.dart';

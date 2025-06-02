@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:expense_tracker/app/provider/homeprovider.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,7 @@ class _AddTransactionsState extends State<AddTransactions> {
               padding: const EdgeInsets.symmetric(horizontal: 28.0),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   GestureDetector(
@@ -39,17 +37,17 @@ class _AddTransactionsState extends State<AddTransactions> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     "Add Transactions",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -66,26 +64,26 @@ class _AddTransactionsState extends State<AddTransactions> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                         vertical: 22,
                         horizontal: 30,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
                       value: selectedValue,
                       decoration: InputDecoration(
-                          prefixIconConstraints: BoxConstraints(
+                          prefixIconConstraints: const BoxConstraints(
                             minHeight: 48,
                             minWidth: 62,
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 14),
                           hintText: 'Category',
-                          hintStyle: TextStyle(
+                          hintStyle: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
@@ -109,7 +107,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                           provider.category.text = newValue.toString();
                         });
                       }),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   SizedBox(
@@ -133,15 +131,15 @@ class _AddTransactionsState extends State<AddTransactions> {
                       child: AbsorbPointer(
                         child: TextFormField(
                           decoration: InputDecoration(
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
                               ),
-                              prefixIconConstraints: BoxConstraints(
+                              prefixIconConstraints: const BoxConstraints(
                                 minHeight: 48,
                                 minWidth: 62,
                               ),
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 18),
                               prefixIcon: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -161,7 +159,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 280,
                   ),
                   GestureDetector(

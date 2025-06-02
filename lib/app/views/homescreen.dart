@@ -1,5 +1,4 @@
 import 'package:expense_tracker/app/provider/homeprovider.dart';
-import 'package:expense_tracker/app/views/add_transactions.dart';
 import 'package:expense_tracker/app/views/manage_balance.dart';
 import 'package:expense_tracker/app/views/profile.dart';
 import 'package:expense_tracker/constant/colors.dart';
@@ -7,8 +6,21 @@ import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
+
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<Homeprovider>().loadprofile();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +86,16 @@ class Homescreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ManageBalance()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ManageBalance()));
                 },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
@@ -200,10 +214,10 @@ class Homescreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -228,9 +242,9 @@ class Homescreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                         width: double.infinity,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 18, vertical: 14),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
@@ -245,18 +259,18 @@ class Homescreen extends StatelessWidget {
                                 Container(
                                   height: 42,
                                   width: 42,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.green,
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.asset(Appimage.burger),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 6,
                                 ),
                                 Text(
-                                  "${provider.categorylist[index]}",
-                                  style: TextStyle(
+                                  provider.categorylist[index],
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,
                                   ),
@@ -267,13 +281,13 @@ class Homescreen extends StatelessWidget {
                               children: [
                                 Text(
                                   "\$ ${provider.amountlist[index]}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                   ),
                                 ),
                                 Text(
-                                  "${provider.datelist[index].substring(0, 10)}",
-                                  style: TextStyle(
+                                  provider.datelist[index].substring(0, 10),
+                                  style: const TextStyle(
                                     fontSize: 16,
                                   ),
                                 ),

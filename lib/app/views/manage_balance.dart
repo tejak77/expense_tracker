@@ -8,39 +8,39 @@ class ManageBalance extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(28),
+          padding: const EdgeInsets.all(28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
+              const Icon(
                 Icons.arrow_back,
                 size: 32,
               ),
-              Text(
+              const Text(
                 "Manage your Cash Balance",
                 style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
-              Text(
+              const Text(
                 "Enter the allocated amount for this month",
                 style: TextStyle(
                   fontSize: 16,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
                 decoration: InputDecoration(
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                        const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
                     suffixIcon: Padding(
-                      padding: EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(right: 20),
                       child: Container(
                         height: 46,
                         width: 100,
@@ -48,7 +48,7 @@ class ManageBalance extends StatelessWidget {
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Add",
                             style: TextStyle(
@@ -63,41 +63,41 @@ class ManageBalance extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     hintText: '\$ 8500.00',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 25,
                     )),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text("Add additional income"),
-              SizedBox(
+              const Text("Add additional income"),
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
                 decoration: InputDecoration(
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(right: 20.0),
                       child: Container(
-                        child: Center(
-                          child: Text(
-                            "Add",
-                            style: TextStyle(fontSize: 24, color: Colors.white),
-                          ),
-                        ),
                         height: 47,
                         width: 100,
                         decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        child: const Center(
+                          child: Text(
+                            "Add",
+                            style: TextStyle(fontSize: 24, color: Colors.white),
+                          ),
+                        ),
                       ),
                     ),
                     hintText: '\$ 8500.00',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       fontSize: 25,
                       color: Colors.grey,
                     ),
@@ -105,9 +105,15 @@ class ManageBalance extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     )),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
-                child: Center(
+                height: 50,
+                width: 380,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Center(
                   child: Text(
                     "Save",
                     style: TextStyle(
@@ -116,12 +122,6 @@ class ManageBalance extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                ),
-                height: 50,
-                width: 380,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(15),
                 ),
               )
             ],

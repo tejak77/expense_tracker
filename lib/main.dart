@@ -10,7 +10,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => Authprovider()),
       ChangeNotifierProvider(create: (_) => Homeprovider()),
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
