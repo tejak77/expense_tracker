@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
                           CircleAvatar(
                             radius: 60,
                             backgroundImage: image == null
-                                ? AssetImage(Appimage.myprofileimage)
+                                ? const AssetImage(Appimage.myprofileimage)
                                 : FileImage(image!),
                           ),
                           Positioned(
@@ -191,8 +191,9 @@ class _ProfileState extends State<Profile> {
                         },
                         decoration: InputDecoration(
                           suffixIcon: const Icon(Icons.calendar_month),
-                          hintText: provider.dob.text.substring(0, 10),
-                          // ? 'Date'
+                          hintText: provider.dob.text.isEmpty
+                              ? 'Date'
+                              : provider.dob.text.substring(0, 10),
                           // : '${dateOfBirth!.day}/${dateOfBirth!.month}/${dateOfBirth!.year}',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),

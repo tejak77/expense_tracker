@@ -20,9 +20,9 @@ class Authprovider extends ChangeNotifier {
     }
   }
 
-  String? Profilenumber;
+  String? profilenumber;
   getSavedPhoneno() async {
     final prefs = await SharedPreferences.getInstance();
-    Profilenumber = prefs.getString('phoneno');
+    profilenumber = prefs.getString('phoneno');
   }
 }

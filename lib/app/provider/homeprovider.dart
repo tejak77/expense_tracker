@@ -19,7 +19,7 @@ class Homeprovider extends ChangeNotifier {
     await prefs.setString('dob', dob.text.toString());
 
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Details saved")));
+        .showSnackBar(const SnackBar(content: Text("Details saved")));
   }
 
   loadprofile() async {
