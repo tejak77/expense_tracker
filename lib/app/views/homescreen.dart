@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expense_tracker/app/provider/homeprovider.dart';
 import 'package:expense_tracker/app/views/manage_balance.dart';
 import 'package:expense_tracker/app/views/profile.dart';
@@ -19,6 +21,7 @@ class _HomescreenState extends State<Homescreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<Homeprovider>().loadprofile();
+      context.read<Homeprovider>().getincome();
     });
   }
 
@@ -40,10 +43,14 @@ class _HomescreenState extends State<Homescreen> {
                           MaterialPageRoute(
                               builder: (context) => const Profile()));
                     },
-                    child: Image.asset(
-                      Appimage.profile,
-                      scale: 2,
-                    ),
+                    child: provider.profile_image == null
+                        ? Image.asset(
+                            Appimage.profile,
+                            scale: 2,
+                          )
+                        : Image(
+                            height: 50,
+                            image: FileImage(File(provider.profile_image!))),
                   ),
                   const SizedBox(
                     width: 6,
@@ -145,7 +152,7 @@ class _HomescreenState extends State<Homescreen> {
                               const SizedBox(
                                 width: 6,
                               ),
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -157,7 +164,7 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   ),
                                   Text(
-                                    "\$ 2500.00",
+                                    "\$ ${provider.income}",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
@@ -185,7 +192,7 @@ class _HomescreenState extends State<Homescreen> {
                               const SizedBox(
                                 width: 6,
                               ),
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -197,7 +204,7 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   ),
                                   Text(
-                                    "\$ 800.00",
+                                    "\$ ${provider.totalexpenses}",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,

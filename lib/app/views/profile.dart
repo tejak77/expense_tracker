@@ -23,9 +23,14 @@ class _ProfileState extends State<Profile> {
     final imagepicker = ImagePicker();
     final pickedFile = await imagepicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      image = File(pickedFile!.path);
-    });
+    if (pickedFile != null) {
+      final provider = Provider.of<Homeprovider>(context, listen: false);
+
+      setState(() {
+        image = File(pickedFile.path);
+        provider.profile_image = image!.path;
+      });
+    }
   }
 
   @override
@@ -53,9 +58,9 @@ class _ProfileState extends State<Profile> {
                         children: [
                           CircleAvatar(
                             radius: 60,
-                            backgroundImage: image == null
+                            backgroundImage: provider.profile_image == null
                                 ? const AssetImage(Appimage.myprofileimage)
-                                : FileImage(image!),
+                                : FileImage(File(provider.profile_image!)),
                           ),
                           Positioned(
                               right: 0,
@@ -184,7 +189,7 @@ class _ProfileState extends State<Profile> {
                     child: AbsorbPointer(
                       child: TextFormField(
                         validator: (value) {
-                          if (dateOfBirth == null) {
+                          if (provider.dob.text.isEmpty) {
                             return "Select a date";
                           }
                           return null;
