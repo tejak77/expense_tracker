@@ -5,6 +5,7 @@ import 'package:expense_tracker/app/views/manage_balance.dart';
 import 'package:expense_tracker/app/views/profile.dart';
 import 'package:expense_tracker/constant/colors.dart';
 import 'package:expense_tracker/constant/images.dart';
+import 'package:expense_tracker/helper/datehelper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ class _HomescreenState extends State<Homescreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<Homeprovider>().loadprofile();
       context.read<Homeprovider>().getincome();
+      context.read<Homeprovider>().loadtransactions();
     });
   }
 
@@ -43,19 +45,17 @@ class _HomescreenState extends State<Homescreen> {
                           MaterialPageRoute(
                               builder: (context) => const Profile()));
                     },
-                    child: provider.profile_image == null
-                        ? Image.asset(
-                            Appimage.profile,
-                            scale: 2,
-                          )
-                        : Image(
-                            height: 50,
-                            image: FileImage(File(provider.profile_image!))),
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundImage: provider.profile_image == null
+                          ? const AssetImage(Appimage.myprofileimage)
+                          : FileImage(File(provider.profile_image!)),
+                    ),
                   ),
                   const SizedBox(
                     width: 6,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -66,7 +66,7 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                       ),
                       Text(
-                        "Sai Pavan",
+                        provider.name.text,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
@@ -121,8 +121,8 @@ class _HomescreenState extends State<Homescreen> {
                           color: Colors.white,
                         ),
                       ),
-                      const Text(
-                        "\$ 8500.00",
+                      Text(
+                        "\$ ${provider.income - provider.totalexpenses}",
                         style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.w500,
@@ -285,6 +285,7 @@ class _HomescreenState extends State<Homescreen> {
                               ],
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "\$ ${provider.amountlist[index]}",
@@ -293,7 +294,8 @@ class _HomescreenState extends State<Homescreen> {
                                   ),
                                 ),
                                 Text(
-                                  provider.datelist[index].substring(0, 10),
+                                  DateHelper.getRelativeDate(
+                                      provider.datelist[index]),
                                   style: const TextStyle(
                                     fontSize: 16,
                                   ),

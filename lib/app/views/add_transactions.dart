@@ -164,12 +164,19 @@ class _AddTransactionsState extends State<AddTransactions> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      provider.savetransactions(int.parse(provider.amount.text),
-                          provider.category.text, provider.date.text, context);
-                      setState(() {
-                        selecedDate = null;
-                        selectedValue = null;
-                      });
+                      if (provider.amount.text.isNotEmpty &&
+                          provider.category.text.isNotEmpty &&
+                          provider.date.text.isNotEmpty) {
+                        provider.savetransactions(
+                            int.parse(provider.amount.text),
+                            provider.category.text,
+                            provider.date.text,
+                            context);
+                        setState(() {
+                          selecedDate = null;
+                          selectedValue = null;
+                        });
+                      }
                     },
                     child: Container(
                       height: 50,

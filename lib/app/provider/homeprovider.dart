@@ -41,19 +41,39 @@ class Homeprovider extends ChangeNotifier {
   List<String> datelist = [];
   int totalexpenses = 0;
 
-  savetransactions(int amount, String category, String date, context) {
+  savetransactions(int amount, String category, String date, context) async {
     amountlist.add(amount);
     categorylist.add(category);
     datelist.add(date);
     this.amount.clear();
     this.category.clear();
     this.date.clear();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('categorylist', categorylist);
+    await prefs.setStringList('datelist', datelist);
+    List<String> stringlist = amountlist.map((e) => e.toString()).toList();
+    await prefs.setStringList('amountlist', stringlist);
     if (amountlist.length >= 1) {
       totalexpenses = amountlist.reduce((a, b) => a + b);
     }
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Data added")));
     notifyListeners();
+  }
+
+  loadtransactions() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    categorylist = pref.getStringList('categorylist') ?? [];
+    datelist = pref.getStringList('datelist') ?? [];
+    List<String>? stringlist = pref.getStringList('amountlist') ?? [];
+    amountlist = stringlist.map(int.parse).toList();
+    if (amountlist.length >= 1) {
+      totalexpenses = amountlist.reduce((a, b) => a + b);
+    }
+    print(amountlist.toString());
+    print(categorylist.toString());
+    print(datelist.toString());
   }
 
   // manage balance
@@ -70,6 +90,7 @@ class Homeprovider extends ChangeNotifier {
 
     await prefs.setString('income1', temp2.toString());
     this.income1.clear();
+    getincome();
     notifyListeners();
   }
 
@@ -79,6 +100,7 @@ class Homeprovider extends ChangeNotifier {
     int temp2 = temp + int.parse(income2.text);
     await prefs.setString('income2', temp2.toString());
     this.income2.clear();
+    getincome();
     notifyListeners();
   }
 

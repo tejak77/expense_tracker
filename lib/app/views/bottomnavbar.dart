@@ -26,18 +26,23 @@ class _BottomnavbarState extends State<Bottomnavbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[__selectedIndex],
-      floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          backgroundColor: Colors.blue,
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 33,
-          ),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddTransactions()));
-          }),
+      floatingActionButton: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0,
+        child: FloatingActionButton(
+            shape: const CircleBorder(),
+            backgroundColor: Colors.blue,
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 33,
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AddTransactions()));
+            }),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onitemtapped,
