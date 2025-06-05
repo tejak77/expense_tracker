@@ -1,7 +1,7 @@
-import 'package:expense_tracker/app/views/add_transactions.dart';
 import 'package:expense_tracker/app/views/homescreen.dart';
 import 'package:expense_tracker/app/views/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Bottomnavbar extends StatefulWidget {
   const Bottomnavbar({super.key});
@@ -37,10 +37,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
               size: 33,
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AddTransactions()));
+              context.go('/home/add');
             }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

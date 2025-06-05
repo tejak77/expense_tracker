@@ -1,6 +1,7 @@
 import 'package:expense_tracker/authentication/provider/authprovider.dart';
-import 'package:expense_tracker/authentication/views/signupscreen.dart';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class Loginscreen extends StatefulWidget {
@@ -102,6 +103,7 @@ class _LoginscreenState extends State<Loginscreen> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    // context.go('/home');
                     provider.login(
                       provider.phoneno.text,
                       provider.password.text,
@@ -132,10 +134,7 @@ class _LoginscreenState extends State<Loginscreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Signupscreen()));
+                    context.go('/signup');
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,

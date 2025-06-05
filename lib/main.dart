@@ -1,8 +1,10 @@
 import 'package:expense_tracker/app/provider/homeprovider.dart';
-import 'package:expense_tracker/app/views/bottomnavbar.dart';
 import 'package:expense_tracker/authentication/provider/authprovider.dart';
+import 'package:expense_tracker/constant/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   runApp(MultiProvider(
@@ -19,9 +21,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Bottomnavbar(),
+      routerConfig: router,
     );
   }
 }

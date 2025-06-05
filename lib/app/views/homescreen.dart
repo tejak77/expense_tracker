@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:expense_tracker/app/provider/homeprovider.dart';
-import 'package:expense_tracker/app/views/manage_balance.dart';
 import 'package:expense_tracker/app/views/profile.dart';
 import 'package:expense_tracker/constant/colors.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:expense_tracker/helper/datehelper.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class Homescreen extends StatefulWidget {
@@ -47,9 +47,9 @@ class _HomescreenState extends State<Homescreen> {
                     },
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundImage: provider.profile_image == null
+                      backgroundImage: provider.profileimage == null
                           ? const AssetImage(Appimage.myprofileimage)
-                          : FileImage(File(provider.profile_image!)),
+                          : FileImage(File(provider.profileimage!)),
                     ),
                   ),
                   const SizedBox(
@@ -58,7 +58,7 @@ class _HomescreenState extends State<Homescreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         "Welcome",
                         style: TextStyle(
                           color: Colors.red,
@@ -67,7 +67,7 @@ class _HomescreenState extends State<Homescreen> {
                       ),
                       Text(
                         provider.name.text,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
                         ),
@@ -76,10 +76,15 @@ class _HomescreenState extends State<Homescreen> {
                   )
                 ],
               ),
-              const Icon(
-                Icons.settings,
-                color: Colors.grey,
-                size: 33,
+              GestureDetector(
+                onTap: () {
+                  context.go('/home/settings');
+                },
+                child: const Icon(
+                  Icons.settings,
+                  color: Colors.grey,
+                  size: 33,
+                ),
               ),
             ],
           ),
@@ -93,10 +98,7 @@ class _HomescreenState extends State<Homescreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ManageBalance()));
+                  context.go('/home/manage');
                 },
                 child: Container(
                   padding:
@@ -123,7 +125,7 @@ class _HomescreenState extends State<Homescreen> {
                       ),
                       Text(
                         "\$ ${provider.income - provider.totalexpenses}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
@@ -155,7 +157,7 @@ class _HomescreenState extends State<Homescreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Income",
                                     style: TextStyle(
                                       fontSize: 14,
@@ -165,7 +167,7 @@ class _HomescreenState extends State<Homescreen> {
                                   ),
                                   Text(
                                     "\$ ${provider.income}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -195,7 +197,7 @@ class _HomescreenState extends State<Homescreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Expenses",
                                     style: TextStyle(
                                       fontSize: 14,
@@ -205,7 +207,7 @@ class _HomescreenState extends State<Homescreen> {
                                   ),
                                   Text(
                                     "\$ ${provider.totalexpenses}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,

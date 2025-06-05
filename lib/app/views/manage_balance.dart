@@ -39,7 +39,7 @@ class ManageBalance extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -55,7 +55,7 @@ class ManageBalance extends StatelessWidget {
                             provider.saveincome1();
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Enter value")));
+                                const SnackBar(content: Text("Enter value")));
                           }
                         },
                         child: Padding(
@@ -96,7 +96,7 @@ class ManageBalance extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -111,7 +111,7 @@ class ManageBalance extends StatelessWidget {
                             provider.saveincom2();
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Enter value")));
+                                const SnackBar(content: Text("Enter value")));
                           }
                         },
                         child: Padding(
@@ -151,7 +151,7 @@ class ManageBalance extends StatelessWidget {
                       provider.saveincom2();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Enter both values")));
+                          const SnackBar(content: Text("Enter both values")));
                     }
                   },
                   child: Container(

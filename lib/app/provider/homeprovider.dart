@@ -12,7 +12,7 @@ class Homeprovider extends ChangeNotifier {
   TextEditingController email = TextEditingController();
   TextEditingController mobile = TextEditingController();
   TextEditingController dob = TextEditingController();
-  String? profile_image;
+  String? profileimage;
 
   saveprofile(context) async {
     final prefs = await SharedPreferences.getInstance();
@@ -20,7 +20,7 @@ class Homeprovider extends ChangeNotifier {
     await prefs.setString('email', email.text.toString());
     await prefs.setString('mobile', mobile.text.toString());
     await prefs.setString('dob', dob.text.toString());
-    await prefs.setString('image', profile_image ?? "");
+    await prefs.setString('image', profileimage ?? "");
 
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Details saved")));
@@ -32,7 +32,7 @@ class Homeprovider extends ChangeNotifier {
     email.text = prefs.getString('email') ?? "";
     mobile.text = prefs.getString('mobile') ?? "";
     dob.text = prefs.getString('dob') ?? "";
-    profile_image = prefs.getString('image');
+    profileimage = prefs.getString('image');
     notifyListeners();
   }
 
@@ -54,7 +54,7 @@ class Homeprovider extends ChangeNotifier {
     await prefs.setStringList('datelist', datelist);
     List<String> stringlist = amountlist.map((e) => e.toString()).toList();
     await prefs.setStringList('amountlist', stringlist);
-    if (amountlist.length >= 1) {
+    if (amountlist.isNotEmpty) {
       totalexpenses = amountlist.reduce((a, b) => a + b);
     }
     ScaffoldMessenger.of(context)
@@ -68,12 +68,12 @@ class Homeprovider extends ChangeNotifier {
     datelist = pref.getStringList('datelist') ?? [];
     List<String>? stringlist = pref.getStringList('amountlist') ?? [];
     amountlist = stringlist.map(int.parse).toList();
-    if (amountlist.length >= 1) {
+    if (amountlist.isNotEmpty) {
       totalexpenses = amountlist.reduce((a, b) => a + b);
     }
-    print(amountlist.toString());
-    print(categorylist.toString());
-    print(datelist.toString());
+    log(amountlist.toString());
+    log(categorylist.toString());
+    log(datelist.toString());
   }
 
   // manage balance
@@ -89,7 +89,7 @@ class Homeprovider extends ChangeNotifier {
     log(temp2.toString());
 
     await prefs.setString('income1', temp2.toString());
-    this.income1.clear();
+    income1.clear();
     getincome();
     notifyListeners();
   }
@@ -99,7 +99,7 @@ class Homeprovider extends ChangeNotifier {
     int temp = int.parse(prefs.getString('income2') ?? "0");
     int temp2 = temp + int.parse(income2.text);
     await prefs.setString('income2', temp2.toString());
-    this.income2.clear();
+    income2.clear();
     getincome();
     notifyListeners();
   }

@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
 
       setState(() {
         image = File(pickedFile.path);
-        provider.profile_image = image!.path;
+        provider.profileimage = image!.path;
       });
     }
   }
@@ -58,9 +58,9 @@ class _ProfileState extends State<Profile> {
                         children: [
                           CircleAvatar(
                             radius: 60,
-                            backgroundImage: provider.profile_image == null
+                            backgroundImage: provider.profileimage == null
                                 ? const AssetImage(Appimage.myprofileimage)
-                                : FileImage(File(provider.profile_image!)),
+                                : FileImage(File(provider.profileimage!)),
                           ),
                           Positioned(
                               right: 0,

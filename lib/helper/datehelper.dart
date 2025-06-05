@@ -8,7 +8,7 @@ class DateHelper {
 
       if (inputDate == today) {
         return 'Today';
-      } else if (inputDate == today.subtract(Duration(days: 1))) {
+      } else if (inputDate == today.subtract(const Duration(days: 1))) {
         return 'Yesterday';
       } else {
         return '${date.year}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')}';

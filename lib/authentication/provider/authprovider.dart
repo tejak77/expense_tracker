@@ -1,6 +1,7 @@
-import 'package:expense_tracker/app/views/homescreen.dart';
+import 'package:expense_tracker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
 
 class Authprovider extends ChangeNotifier {
   TextEditingController phoneno = TextEditingController();
@@ -11,8 +12,8 @@ class Authprovider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('phoneno', phonenumber.toString());
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Homescreen()));
+      navigatorKey.currentContext?.go('/home');
+      
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Enter correct details"),
