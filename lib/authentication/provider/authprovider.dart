@@ -1,11 +1,49 @@
+import 'dart:convert';
+import 'package:expense_tracker/constant/apis.dart';
 import 'package:expense_tracker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 
 class Authprovider extends ChangeNotifier {
   TextEditingController phoneno = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  Future<void> signup(context) async {
+    var url = Uri.parse(Apis.baseurl + Apis.signup);
+
+    var response = await http.post(
+      url,
+      headers: {
+        'content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: {
+        'name': name.text,
+        'email': email.text,
+        'mobile_no': phoneno.text,
+        'dob': "2000-05-16",
+        'password': password.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final res = jsonDecode(response.body);
+      print(res.toString());
+
+      if (res['status'] == true) {
+        navigatorKey.currentContext?.go('/');
+      }
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(res['message'])));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.statusCode.toString())));
+    }
+  }
 
   login(String phonenumber, String password, context) async {
     if (phonenumber == "4321" && password == "1234") {
@@ -13,7 +51,6 @@ class Authprovider extends ChangeNotifier {
       await prefs.setString('phoneno', phonenumber.toString());
 
       navigatorKey.currentContext?.go('/home');
-      
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Enter correct details"),

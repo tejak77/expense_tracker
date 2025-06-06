@@ -1,0 +1,5 @@
+class Apis {
+  static const String baseurl = "https://digitalexsolutions.in/teja/";
+  static const String login = "login.php";
+  static const String signup = "signup.php";
+}
