@@ -167,6 +167,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                       if (provider.amount.text.isNotEmpty &&
                           provider.category.text.isNotEmpty &&
                           provider.date.text.isNotEmpty) {
+                        provider.transactions(context);
                         provider.savetransactions(
                             int.parse(provider.amount.text),
                             provider.category.text,

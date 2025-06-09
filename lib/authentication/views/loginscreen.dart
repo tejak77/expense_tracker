@@ -105,8 +105,6 @@ class _LoginscreenState extends State<Loginscreen> {
                   onTap: () {
                     // context.go('/home');
                     provider.login(
-                      provider.phoneno.text,
-                      provider.password.text,
                       context,
                     );
                     provider.getSavedPhoneno();

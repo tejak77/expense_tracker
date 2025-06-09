@@ -13,7 +13,7 @@ class Settingscreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left,
               size: 38,
             )),
@@ -30,10 +30,10 @@ class Settingscreen extends StatelessWidget {
                   Appimage.profileicon,
                   height: 30,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 18,
                 ),
-                Text(
+                const Text(
                   "My Profile",
                   style: TextStyle(
                     fontSize: 22,
@@ -54,10 +54,10 @@ class Settingscreen extends StatelessWidget {
                     Appimage.logouticon,
                     height: 30,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 18,
                   ),
-                  Text(
+                  const Text(
                     "Log Out",
                     style: TextStyle(
                       fontSize: 22,

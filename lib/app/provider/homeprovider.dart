@@ -1,12 +1,82 @@
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:expense_tracker/constant/apis.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Homeprovider extends ChangeNotifier {
   TextEditingController amount = TextEditingController();
   TextEditingController category = TextEditingController();
   TextEditingController date = TextEditingController();
+  String? userid;
+  String? balance;
+
+  Future<void> transactions(context) async {
+    var url = Uri.parse(Apis.baseurl + Apis.addtransactions);
+
+    var response = await http.post(
+      url,
+      headers: {
+        'content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: {
+        'user_id': userid,
+        'amount': amount.text,
+        'type': 'debit',
+        'category': category.text,
+        'transaction_date': date.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final res = jsonDecode(response.body);
+      print(res.toString());
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('balance', res['balance'].toString());
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(res['message'])));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.statusCode.toString())));
+    }
+  }
+
+  Future<void> addbalance(context) async {
+    var url = Uri.parse(Apis.baseurl + Apis.addtransactions);
+    int sum = int.parse(income1.text.isEmpty ? "0" : income1.text) +
+        int.parse(income2.text.isEmpty ? "0" : income2.text);
+    var response = await http.post(
+      url,
+      headers: {
+        'content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: {
+        'user_id': userid,
+        'amount': sum.toString(),
+        'type': 'credit',
+        'category': 'dummy',
+        'transaction_date': 'dummy',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final res = jsonDecode(response.body);
+      print(res.toString());
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('balance', res['balance'].toString());
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(res['message'])));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response.statusCode.toString())));
+    }
+  }
 
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -18,21 +88,31 @@ class Homeprovider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('name', name.text.toString());
     await prefs.setString('email', email.text.toString());
-    await prefs.setString('mobile', mobile.text.toString());
+    await prefs.setString('mobile_no', mobile.text.toString());
     await prefs.setString('dob', dob.text.toString());
-    await prefs.setString('image', profileimage ?? "");
+    await prefs.setString('photo', profileimage ?? "");
 
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Details saved")));
+  }
+
+  loadid() async {
+    final prefs = await SharedPreferences.getInstance();
+    userid = prefs.getString('id') ?? "";
+  }
+
+  loadbalance() async {
+    final prefs = await SharedPreferences.getInstance();
+    balance = prefs.getString('balance') ?? "0";
   }
 
   loadprofile() async {
     final prefs = await SharedPreferences.getInstance();
     name.text = prefs.getString('name') ?? "";
     email.text = prefs.getString('email') ?? "";
-    mobile.text = prefs.getString('mobile') ?? "";
+    mobile.text = prefs.getString('mobile_no') ?? "";
     dob.text = prefs.getString('dob') ?? "";
-    profileimage = prefs.getString('image');
+    profileimage = prefs.getString('photo');
     notifyListeners();
   }
 

@@ -53,6 +53,7 @@ class ManageBalance extends StatelessWidget {
                         onTap: () {
                           if (provider.income1.text.isNotEmpty) {
                             provider.saveincome1();
+                            provider.addbalance(context);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Enter value")));
@@ -109,6 +110,7 @@ class ManageBalance extends StatelessWidget {
                         onTap: () {
                           if (provider.income2.text.isNotEmpty) {
                             provider.saveincom2();
+                            provider.addbalance(context);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Enter value")));
@@ -149,6 +151,7 @@ class ManageBalance extends StatelessWidget {
                         provider.income2.text.isNotEmpty) {
                       provider.saveincome1();
                       provider.saveincom2();
+                      provider.addbalance(context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Enter both values")));

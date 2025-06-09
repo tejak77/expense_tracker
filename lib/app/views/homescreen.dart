@@ -21,6 +21,8 @@ class _HomescreenState extends State<Homescreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<Homeprovider>().loadid();
+      context.read<Homeprovider>().loadbalance();
       context.read<Homeprovider>().loadprofile();
       context.read<Homeprovider>().getincome();
       context.read<Homeprovider>().loadtransactions();
@@ -124,7 +126,7 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                       ),
                       Text(
-                        "\$ ${provider.income - provider.totalexpenses}",
+                        "\$ ${provider.balance ?? "0"}",
                         style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.w500,
