@@ -22,10 +22,9 @@ class _HomescreenState extends State<Homescreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<Homeprovider>().loadid();
-      context.read<Homeprovider>().loadbalance();
+      context.read<Homeprovider>().gettransactions();
+      context.read<Homeprovider>().calculateTotals();
       context.read<Homeprovider>().loadprofile();
-      context.read<Homeprovider>().getincome();
-      context.read<Homeprovider>().loadtransactions();
     });
   }
 
@@ -126,7 +125,7 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                       ),
                       Text(
-                        "\$ ${provider.balance ?? "0"}",
+                        "\$ ${provider.alltnx!.data[0].balance}",
                         style: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.w500,
@@ -168,7 +167,7 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   ),
                                   Text(
-                                    "\$ ${provider.income}",
+                                    "\$ ${provider.totalCredit}",
                                     style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
@@ -208,7 +207,7 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   ),
                                   Text(
-                                    "\$ ${provider.totalexpenses}",
+                                    "\$ ${provider.totalDebit}",
                                     style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
@@ -249,7 +248,7 @@ class _HomescreenState extends State<Homescreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: provider.amountlist.length,
+                    itemCount: provider.debittransactions.length,
                     itemBuilder: (context, index) {
                       return Container(
                         width: double.infinity,
@@ -280,7 +279,7 @@ class _HomescreenState extends State<Homescreen> {
                                   width: 6,
                                 ),
                                 Text(
-                                  provider.categorylist[index],
+                                  provider.debittransactions[index].category,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 18,
@@ -292,14 +291,15 @@ class _HomescreenState extends State<Homescreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "\$ ${provider.amountlist[index]}",
+                                  "\$ ${provider.debittransactions[index].amount}",
                                   style: const TextStyle(
                                     fontSize: 18,
                                   ),
                                 ),
                                 Text(
-                                  DateHelper.getRelativeDate(
-                                      provider.datelist[index]),
+                                  DateHelper.getRelativeDate(provider
+                                      .debittransactions[index]
+                                      .transactionDate),
                                   style: const TextStyle(
                                     fontSize: 16,
                                   ),

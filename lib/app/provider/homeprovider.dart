@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:expense_tracker/app/models/transactionsmodel.dart';
 import 'package:expense_tracker/constant/apis.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,25 @@ class Homeprovider extends ChangeNotifier {
   TextEditingController date = TextEditingController();
   String? userid;
   String? balance;
+
+  double totalCredit = 0;
+  double totalDebit = 0;
+
+  void calculateTotals() {
+    totalCredit = 0;
+    totalDebit = 0;
+
+    for (var txn in alltnx!.data) {
+      final amt = double.tryParse(txn.amount) ?? 0;
+      if (txn.type == Type.CREDIT) {
+        totalCredit += amt;
+      } else if (txn.type == Type.DEBIT) {
+        totalDebit += amt;
+      }
+    }
+
+    notifyListeners();
+  }
 
   Future<void> transactions(context) async {
     var url = Uri.parse(Apis.baseurl + Apis.addtransactions);
@@ -43,6 +63,25 @@ class Homeprovider extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(response.statusCode.toString())));
     }
+    amount.clear();
+  }
+
+  Alltransactions? alltnx;
+  List<Datum> debittransactions = [];
+
+  gettransactions() async {
+    var url = Uri.parse(Apis.baseurl + Apis.alltnx + "?user_id=$userid");
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final res = jsonDecode(response.body);
+      alltnx = Alltransactions.fromJson(res);
+      debittransactions =
+          alltnx!.data.where((txn) => txn.type == Type.DEBIT).toList();
+      notifyListeners();
+      log(res.toString());
+    }
+    notifyListeners();
   }
 
   Future<void> addbalance(context) async {
@@ -101,11 +140,6 @@ class Homeprovider extends ChangeNotifier {
     userid = prefs.getString('id') ?? "";
   }
 
-  loadbalance() async {
-    final prefs = await SharedPreferences.getInstance();
-    balance = prefs.getString('balance') ?? "0";
-  }
-
   loadprofile() async {
     final prefs = await SharedPreferences.getInstance();
     name.text = prefs.getString('name') ?? "";
@@ -142,20 +176,6 @@ class Homeprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadtransactions() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    categorylist = pref.getStringList('categorylist') ?? [];
-    datelist = pref.getStringList('datelist') ?? [];
-    List<String>? stringlist = pref.getStringList('amountlist') ?? [];
-    amountlist = stringlist.map(int.parse).toList();
-    if (amountlist.isNotEmpty) {
-      totalexpenses = amountlist.reduce((a, b) => a + b);
-    }
-    log(amountlist.toString());
-    log(categorylist.toString());
-    log(datelist.toString());
-  }
-
   // manage balance
   TextEditingController income1 = TextEditingController();
   TextEditingController income2 = TextEditingController();
@@ -170,7 +190,6 @@ class Homeprovider extends ChangeNotifier {
 
     await prefs.setString('income1', temp2.toString());
     income1.clear();
-    getincome();
     notifyListeners();
   }
 
@@ -180,16 +199,6 @@ class Homeprovider extends ChangeNotifier {
     int temp2 = temp + int.parse(income2.text);
     await prefs.setString('income2', temp2.toString());
     income2.clear();
-    getincome();
-    notifyListeners();
-  }
-
-  int income = 0;
-
-  getincome() async {
-    final prefs = await SharedPreferences.getInstance();
-    income = int.parse(prefs.getString('income1') ?? "0") +
-        int.parse(prefs.getString('income2') ?? "0");
     notifyListeners();
   }
 }

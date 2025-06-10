@@ -1,6 +1,7 @@
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settingscreen extends StatelessWidget {
   const Settingscreen({super.key});
@@ -45,7 +46,9 @@ class Settingscreen extends StatelessWidget {
               height: 20,
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.clear();
                 context.go('/');
               },
               child: Row(

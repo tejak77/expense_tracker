@@ -168,11 +168,8 @@ class _AddTransactionsState extends State<AddTransactions> {
                           provider.category.text.isNotEmpty &&
                           provider.date.text.isNotEmpty) {
                         provider.transactions(context);
-                        provider.savetransactions(
-                            int.parse(provider.amount.text),
-                            provider.category.text,
-                            provider.date.text,
-                            context);
+                        provider.gettransactions();
+                        provider.calculateTotals();
                         setState(() {
                           selecedDate = null;
                           selectedValue = null;
