@@ -107,7 +107,6 @@ class _LoginscreenState extends State<Loginscreen> {
                     provider.login(
                       context,
                     );
-                    provider.getSavedPhoneno();
                   },
                   child: Container(
                     height: 50,

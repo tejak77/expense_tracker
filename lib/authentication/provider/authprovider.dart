@@ -80,10 +80,4 @@ class Authprovider extends ChangeNotifier {
     log(response.statusCode.toString());
     log(response.body.toString());
   }
-
-  String? profilenumber;
-  getSavedPhoneno() async {
-    final prefs = await SharedPreferences.getInstance();
-    profilenumber = prefs.getString('phoneno');
-  }
 }

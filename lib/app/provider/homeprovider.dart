@@ -17,7 +17,7 @@ class Homeprovider extends ChangeNotifier {
   double totalCredit = 0;
   double totalDebit = 0;
 
-  void calculateTotals() {
+  Future<void> calculateTotals() async {
     totalCredit = 0;
     totalDebit = 0;
 
@@ -66,10 +66,15 @@ class Homeprovider extends ChangeNotifier {
     amount.clear();
   }
 
+  bool isloading = false;
+
   Alltransactions? alltnx;
   List<Datum> debittransactions = [];
-
-  gettransactions() async {
+  String noid = "No user id ";
+  Future<void> gettransactions() async {
+    isloading = true;
+    notifyListeners();
+    log("gettransactions  $userid ");
     var url = Uri.parse(Apis.baseurl + Apis.alltnx + "?user_id=$userid");
     var response = await http.get(url);
 
@@ -81,6 +86,7 @@ class Homeprovider extends ChangeNotifier {
       notifyListeners();
       log(res.toString());
     }
+    isloading = false;
     notifyListeners();
   }
 
@@ -138,9 +144,11 @@ class Homeprovider extends ChangeNotifier {
   loadid() async {
     final prefs = await SharedPreferences.getInstance();
     userid = prefs.getString('id') ?? "";
+    log(userid!);
+    notifyListeners();
   }
 
-  loadprofile() async {
+  Future<void> loadprofile() async {
     final prefs = await SharedPreferences.getInstance();
     name.text = prefs.getString('name') ?? "";
     email.text = prefs.getString('email') ?? "";
