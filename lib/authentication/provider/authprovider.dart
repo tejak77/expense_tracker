@@ -70,6 +70,7 @@ class Authprovider extends ChangeNotifier {
         await prefs.setString('mobile_no', res['user']['mobile_no'].toString());
         await prefs.setString('dob', res['user']['dob'].toString());
         await prefs.setString('photo', res['user']['photo'].toString());
+        await prefs.setBool('isloggedin', true);
         navigatorKey.currentContext?.go('/home');
         phoneno.clear();
         password.clear();

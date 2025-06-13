@@ -25,7 +25,6 @@ class _HomescreenState extends State<Homescreen> {
       await provider.loadid();
       await Future.wait([
         provider.gettransactions(),
-        provider.calculateTotals(),
         provider.loadprofile(),
       ]);
     });
@@ -130,7 +129,7 @@ class _HomescreenState extends State<Homescreen> {
                               ),
                             ),
                             Text(
-                              "\$ ${provider.alltnx!.data.isNotEmpty ? provider.alltnx!.data[0].balance : "0"}",
+                              "\$ ${provider.balance ?? "0"}",
                               style: const TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.w500,

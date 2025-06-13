@@ -13,7 +13,7 @@ class Homeprovider extends ChangeNotifier {
   TextEditingController category = TextEditingController();
   TextEditingController date = TextEditingController();
   String? userid;
-  String? balance;
+  double? balance;
 
   double totalCredit = 0;
   double totalDebit = 0;
@@ -30,7 +30,7 @@ class Homeprovider extends ChangeNotifier {
         totalDebit += amt;
       }
     }
-
+    balance = totalCredit - totalDebit;
     notifyListeners();
   }
 
@@ -60,6 +60,8 @@ class Homeprovider extends ChangeNotifier {
 
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(res['message'])));
+
+      await gettransactions();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(response.statusCode.toString())));
@@ -89,6 +91,7 @@ class Homeprovider extends ChangeNotifier {
       debittransactions =
           alltnx!.data.where((txn) => txn.type == Type.DEBIT).toList();
 
+      await calculateTotals();
       notifyListeners();
     }
     isloading = false;
@@ -122,10 +125,13 @@ class Homeprovider extends ChangeNotifier {
 
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(res['message'])));
+      await gettransactions();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(response.statusCode.toString())));
     }
+    income1.clear();
+    income2.clear();
   }
 
   String getcategoryimage(String category) {
@@ -215,29 +221,6 @@ class Homeprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // manage balance
   TextEditingController income1 = TextEditingController();
   TextEditingController income2 = TextEditingController();
-
-  saveincome1() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    int temp = int.parse(prefs.getString('income1') ?? "0");
-    log(temp.toString());
-    int temp2 = temp + int.parse(income1.text);
-    log(temp2.toString());
-
-    await prefs.setString('income1', temp2.toString());
-    income1.clear();
-    notifyListeners();
-  }
-
-  saveincom2() async {
-    final prefs = await SharedPreferences.getInstance();
-    int temp = int.parse(prefs.getString('income2') ?? "0");
-    int temp2 = temp + int.parse(income2.text);
-    await prefs.setString('income2', temp2.toString());
-    income2.clear();
-    notifyListeners();
-  }
 }
