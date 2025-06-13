@@ -3,11 +3,17 @@ import 'package:expense_tracker/authentication/views/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Signupscreen extends StatelessWidget {
+class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
 
   @override
+  State<Signupscreen> createState() => _SignupscreenState();
+}
+
+class _SignupscreenState extends State<Signupscreen> {
+  @override
   Widget build(BuildContext context) {
+    DateTime? dateOfBirth;
     return Consumer<Authprovider>(builder: (context, provider, _) {
       return SafeArea(
         child: Scaffold(
@@ -21,7 +27,7 @@ class Signupscreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     const SizedBox(
-                      height: 120,
+                      height: 60,
                     ),
                     const Center(
                       child: Text(
@@ -93,6 +99,47 @@ class Signupscreen extends StatelessWidget {
                     ),
                     const SizedBox(
                       height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: dateOfBirth ?? DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100));
+                        if (pickedDate != null) {
+                          setState(() {
+                            dateOfBirth = pickedDate;
+                            provider.dob.text = pickedDate.toString();
+                          });
+                        }
+                      },
+                      child: AbsorbPointer(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (provider.dob.text.isEmpty) {
+                              return "Select a date";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.calendar_month,
+                              color: Colors.grey,
+                            ),
+                            hintText: provider.dob.text.isEmpty
+                                ? 'Date'
+                                : provider.dob.text.substring(0, 10),
+                            // : '${dateOfBirth!.day}/${dateOfBirth!.month}/${dateOfBirth!.year}',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     TextFormField(
                       controller: provider.password,

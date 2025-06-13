@@ -130,7 +130,7 @@ class _HomescreenState extends State<Homescreen> {
                               ),
                             ),
                             Text(
-                              "\$ ${provider.alltnx!.data[0].balance}",
+                              "\$ ${provider.alltnx!.data.isNotEmpty ? provider.alltnx!.data[0].balance : "0"}",
                               style: const TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.w500,
@@ -277,11 +277,16 @@ class _HomescreenState extends State<Homescreen> {
                                       Container(
                                         height: 42,
                                         width: 42,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.green,
+                                        decoration: BoxDecoration(
+                                          color: provider.getcategorycolor(
+                                              provider.debittransactions[index]
+                                                  .category),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Image.asset(Appimage.burger),
+                                        child: Image.asset(
+                                            provider.getcategoryimage(provider
+                                                .debittransactions[index]
+                                                .category)),
                                       ),
                                       const SizedBox(
                                         width: 6,

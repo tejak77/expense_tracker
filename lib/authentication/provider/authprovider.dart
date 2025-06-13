@@ -12,6 +12,7 @@ class Authprovider extends ChangeNotifier {
   TextEditingController email = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController dob = TextEditingController();
 
   Future<void> signup(context) async {
     var url = Uri.parse(Apis.baseurl + Apis.signup);
@@ -25,7 +26,7 @@ class Authprovider extends ChangeNotifier {
         'name': name.text,
         'email': email.text,
         'mobile_no': phoneno.text,
-        'dob': "2000-05-16",
+        'dob': dob.text,
         'password': password.text,
       },
     );

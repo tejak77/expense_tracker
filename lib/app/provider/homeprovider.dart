@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:expense_tracker/app/models/transactionsmodel.dart';
 import 'package:expense_tracker/constant/apis.dart';
+import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -75,16 +76,20 @@ class Homeprovider extends ChangeNotifier {
     isloading = true;
     notifyListeners();
     log("gettransactions  $userid ");
-    var url = Uri.parse(Apis.baseurl + Apis.alltnx + "?user_id=$userid");
+    var url = Uri.parse("${Apis.baseurl}${Apis.alltnx}?user_id=$userid");
     var response = await http.get(url);
+
+    log(response.body);
 
     if (response.statusCode == 200) {
       final res = jsonDecode(response.body);
+
       alltnx = Alltransactions.fromJson(res);
+
       debittransactions =
           alltnx!.data.where((txn) => txn.type == Type.DEBIT).toList();
+
       notifyListeners();
-      log(res.toString());
     }
     isloading = false;
     notifyListeners();
@@ -120,6 +125,32 @@ class Homeprovider extends ChangeNotifier {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(response.statusCode.toString())));
+    }
+  }
+
+  String getcategoryimage(String category) {
+    switch (category) {
+      case 'Food':
+        return Appimage.foodicon;
+      case 'Shopping':
+        return Appimage.shoppingicon;
+      case 'Entertainment':
+        return Appimage.entartainmenticon;
+      default:
+        return Appimage.travelicon;
+    }
+  }
+
+  Color getcategorycolor(String category) {
+    switch (category) {
+      case 'Food':
+        return Colors.lightGreen;
+      case 'Shopping':
+        return Colors.blue;
+      case 'Entertainment':
+        return Colors.red;
+      default:
+        return Colors.pink;
     }
   }
 
