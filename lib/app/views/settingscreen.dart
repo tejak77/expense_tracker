@@ -46,10 +46,36 @@ class Settingscreen extends StatelessWidget {
               height: 20,
             ),
             GestureDetector(
-              onTap: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.clear();
-                context.go('/');
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                          // backgroundColor: Colors.black,
+                          title: Text('Confirm Logout ?'),
+                          content: Text('Are you sure want to logout'),
+                          actions: [
+                            
+                            TextButton(
+                              onPressed: () => Navigator.of(ctx).pop(),
+                              child: Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                Navigator.of(ctx).pop();
+                                final prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.clear();
+                                context.go('/');
+                              },
+                              child: Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ));
               },
               child: Row(
                 children: [
