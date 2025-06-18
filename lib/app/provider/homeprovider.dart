@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:expense_tracker/app/models/transactionsmodel.dart';
 import 'package:expense_tracker/constant/apis.dart';
@@ -165,6 +166,7 @@ class Homeprovider extends ChangeNotifier {
   TextEditingController mobile = TextEditingController();
   TextEditingController dob = TextEditingController();
   String? profileimage;
+  String? localimage;
 
   saveprofile(context) async {
     final prefs = await SharedPreferences.getInstance();
@@ -173,6 +175,7 @@ class Homeprovider extends ChangeNotifier {
     await prefs.setString('mobile_no', mobile.text.toString());
     await prefs.setString('dob', dob.text.toString());
     await prefs.setString('photo', profileimage ?? "");
+    await prefs.setString('localphoto', localimage ?? "");
 
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Details saved")));
@@ -191,7 +194,8 @@ class Homeprovider extends ChangeNotifier {
     email.text = prefs.getString('email') ?? "";
     mobile.text = prefs.getString('mobile_no') ?? "";
     dob.text = prefs.getString('dob') ?? "";
-    profileimage = prefs.getString('photo');
+    profileimage = prefs.getString('photo') ?? "";
+    localimage = prefs.getString('localphoto') ?? "";
     notifyListeners();
   }
 
@@ -223,4 +227,39 @@ class Homeprovider extends ChangeNotifier {
 
   TextEditingController income1 = TextEditingController();
   TextEditingController income2 = TextEditingController();
+
+  // profile update
+  Future<void> updateprofilewithPhoto({
+    File? photofile,
+  }) async {
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(Apis.baseurl + Apis.updateprofile),
+      );
+
+      if (photofile != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('photo', photofile.path));
+      }
+      request.fields.addAll({
+        'id': userid!,
+        'name': name.text,
+        'email': email.text,
+        'mobile_no': mobile.text,
+        'dob': dob.text,
+      });
+
+      var response = await http.Response.fromStream(await request.send());
+
+      if (response.statusCode == 200) {
+        var res = jsonDecode(response.body);
+        log(res['message']);
+      } else {
+        log("failed to upload ${response.statusCode}");
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

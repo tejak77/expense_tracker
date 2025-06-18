@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:expense_tracker/app/provider/homeprovider.dart';
+import 'package:expense_tracker/constant/apis.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +29,7 @@ class _ProfileState extends State<Profile> {
 
       setState(() {
         image = File(pickedFile.path);
-        provider.profileimage = image!.path;
+        provider.localimage = image!.path;
       });
     }
   }
@@ -58,9 +59,12 @@ class _ProfileState extends State<Profile> {
                         children: [
                           CircleAvatar(
                             radius: 60,
-                            backgroundImage: provider.profileimage == null
-                                ? const AssetImage(Appimage.myprofileimage)
-                                : FileImage(File(provider.profileimage!)),
+                            backgroundImage: provider.localimage!.length > 1
+                                ? FileImage(File(provider.localimage!))
+                                : provider.profileimage!.length > 1
+                                    ? NetworkImage(
+                                        Apis.baseurl + provider.profileimage!)
+                                    : AssetImage(Appimage.profileicon),
                           ),
                           Positioned(
                               right: 0,
@@ -150,9 +154,7 @@ class _ProfileState extends State<Profile> {
                       if (value == null || value.isEmpty) {
                         return "Enter your mobile number";
                       }
-                      if (value.length != 10) {
-                        return "Enter valid mobile number";
-                      }
+
                       return null;
                     },
                     controller: provider.mobile,
@@ -213,6 +215,7 @@ class _ProfileState extends State<Profile> {
                   GestureDetector(
                     onTap: () {
                       if (_formkey.currentState!.validate()) {
+                        provider.updateprofilewithPhoto(photofile: image);
                         provider.saveprofile(context);
                       }
                     },

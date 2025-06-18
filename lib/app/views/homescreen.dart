@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:expense_tracker/app/provider/homeprovider.dart';
 import 'package:expense_tracker/app/views/profile.dart';
+import 'package:expense_tracker/constant/apis.dart';
 import 'package:expense_tracker/constant/colors.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:expense_tracker/helper/datehelper.dart';
@@ -52,9 +53,12 @@ class _HomescreenState extends State<Homescreen> {
                           },
                           child: CircleAvatar(
                             radius: 20,
-                            backgroundImage: provider.profileimage == null
-                                ? const AssetImage(Appimage.myprofileimage)
-                                : FileImage(File(provider.profileimage!)),
+                            backgroundImage: provider.localimage!.length > 1
+                                ? FileImage(File(provider.localimage!))
+                                : provider.profileimage!.length > 1
+                                    ? NetworkImage(
+                                        Apis.baseurl + provider.profileimage!)
+                                    : AssetImage(Appimage.profileicon),
                           ),
                         ),
                         const SizedBox(
