@@ -13,6 +13,15 @@ class AddTransactions extends StatefulWidget {
 class _AddTransactionsState extends State<AddTransactions> {
   String? selectedValue;
   DateTime? selecedDate;
+
+  final List<String> categories = [
+    'Food',
+    'Shopping',
+    'Entertainment',
+    'Travel',
+    'Other'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Homeprovider>(builder: (context, provider, _) {
@@ -95,7 +104,7 @@ class _AddTransactionsState extends State<AddTransactions> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           )),
-                      items: ['Food', 'Shopping', 'Entertainment', 'Travel']
+                      items: categories
                           .map((item) => DropdownMenuItem(
                                 value: item,
                                 child: Text(item),
@@ -104,9 +113,27 @@ class _AddTransactionsState extends State<AddTransactions> {
                       onChanged: (newValue) {
                         setState(() {
                           selectedValue = newValue;
-                          provider.category.text = newValue.toString();
+                          if (newValue != 'Other') {
+                            provider.category.text = newValue.toString();
+                          } else {
+                            provider.category.text = '';
+                          }
                         });
                       }),
+                  if (selectedValue == 'Other') ...[
+                    SizedBox(
+                      height: 14,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Enter custom category',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        provider.category.text = value;
+                      },
+                    )
+                  ],
                   const SizedBox(
                     height: 30,
                   ),

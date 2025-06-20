@@ -241,7 +241,7 @@ class _HomescreenState extends State<Homescreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Transaction",
+                          "Transactions",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,

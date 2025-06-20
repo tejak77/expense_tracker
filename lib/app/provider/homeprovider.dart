@@ -45,9 +45,9 @@ class Homeprovider extends ChangeNotifier {
       },
       body: {
         'user_id': userid,
-        'amount': amount.text,
+        'amount': amount.text.trim(),
         'type': 'debit',
-        'category': category.text,
+        'category': category.text.trim(),
         'transaction_date': date.text,
       },
     );
@@ -170,9 +170,9 @@ class Homeprovider extends ChangeNotifier {
 
   saveprofile(context) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('name', name.text.toString());
-    await prefs.setString('email', email.text.toString());
-    await prefs.setString('mobile_no', mobile.text.toString());
+    await prefs.setString('name', name.text.trim().toString());
+    await prefs.setString('email', email.text.trim().toString());
+    await prefs.setString('mobile_no', mobile.text.trim().toString());
     await prefs.setString('dob', dob.text.toString());
     await prefs.setString('photo', profileimage ?? "");
     await prefs.setString('localphoto', localimage ?? "");
@@ -244,9 +244,9 @@ class Homeprovider extends ChangeNotifier {
       }
       request.fields.addAll({
         'id': userid!,
-        'name': name.text,
-        'email': email.text,
-        'mobile_no': mobile.text,
+        'name': name.text.trim(),
+        'email': email.text.trim(),
+        'mobile_no': mobile.text.trim(),
         'dob': dob.text,
       });
 
