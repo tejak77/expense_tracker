@@ -1,3 +1,5 @@
+import 'package:expense_tracker/app/views/policyscreen.dart';
+import 'package:expense_tracker/app/views/profile.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,22 +27,28 @@ class Settingscreen extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            Row(
-              children: [
-                Image.asset(
-                  Appimage.profileicon,
-                  height: 30,
-                ),
-                const SizedBox(
-                  width: 18,
-                ),
-                const Text(
-                  "My Profile",
-                  style: TextStyle(
-                    fontSize: 22,
-                  ),
-                ),
-              ],
+            settingwidget(
+                icon: Icons.adb_outlined, ontap: () {}, text: "android"),
+            const SizedBox(
+              height: 20,
+            ),
+            settingwidget(
+                icon: Icons.person,
+                ontap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Profile()));
+                },
+                text: "My Profile"),
+            const SizedBox(
+              height: 20,
+            ),
+            settingwidget(
+              icon: Icons.privacy_tip_outlined,
+              ontap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Policyscreen()));
+              },
+              text: "Privacy Policy",
             ),
             const SizedBox(
               height: 20,
@@ -54,7 +62,6 @@ class Settingscreen extends StatelessWidget {
                           title: Text('Confirm Logout ?'),
                           content: Text('Are you sure want to logout'),
                           actions: [
-                            
                             TextButton(
                               onPressed: () => Navigator.of(ctx).pop(),
                               child: Text('Cancel'),
@@ -98,6 +105,42 @@ class Settingscreen extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class settingwidget extends StatelessWidget {
+  final VoidCallback ontap;
+  final IconData icon;
+  final String text;
+  const settingwidget({
+    required this.icon,
+    required this.ontap,
+    required this.text,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: 30,
+          ),
+          const SizedBox(
+            width: 18,
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 22,
+            ),
+          ),
+        ],
       ),
     );
   }
