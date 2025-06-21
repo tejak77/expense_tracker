@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:expense_tracker/app/provider/homeprovider.dart';
 import 'package:expense_tracker/constant/apis.dart';
+import 'package:expense_tracker/constant/colors.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,8 +39,17 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Consumer<Homeprovider>(builder: (context, provider, _) {
       return Scaffold(
+        backgroundColor:
+            provider.isdarkmode ? Appcolors.darkcolor : Appcolors.white,
         appBar: AppBar(
-          title: const Text("Edit Profile"),
+          backgroundColor:
+              provider.isdarkmode ? Appcolors.darkcolor : Appcolors.white,
+          title: Text(
+            "Edit Profile",
+            style: TextStyle(
+              color: provider.isdarkmode ? Appcolors.white : null,
+            ),
+          ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -88,16 +98,21 @@ class _ProfileState extends State<Profile> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 14, bottom: 4),
                     child: Text(
                       "First Name:",
                       style: TextStyle(
                         fontSize: 16,
+                        color:
+                            provider.isdarkmode ? Appcolors.lightcolor : null,
                       ),
                     ),
                   ),
                   TextFormField(
+                    style: TextStyle(
+                      color: provider.isdarkmode ? Appcolors.lightcolor : null,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "please enter your name";
@@ -112,16 +127,21 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 14, bottom: 4, top: 12),
                     child: Text(
                       "Email id:",
                       style: TextStyle(
                         fontSize: 16,
+                        color:
+                            provider.isdarkmode ? Appcolors.lightcolor : null,
                       ),
                     ),
                   ),
                   TextFormField(
+                    style: TextStyle(
+                      color: provider.isdarkmode ? Appcolors.lightcolor : null,
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "please enter an email";
@@ -139,16 +159,21 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 14, bottom: 4, top: 12),
                     child: Text(
                       "Mobile Number:",
                       style: TextStyle(
                         fontSize: 16,
+                        color:
+                            provider.isdarkmode ? Appcolors.lightcolor : null,
                       ),
                     ),
                   ),
                   TextFormField(
+                    style: TextStyle(
+                      color: provider.isdarkmode ? Appcolors.lightcolor : null,
+                    ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -165,12 +190,14 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 14, bottom: 4, top: 12),
                     child: Text(
                       "Date of Birth:",
                       style: TextStyle(
                         fontSize: 16,
+                        color:
+                            provider.isdarkmode ? Appcolors.lightcolor : null,
                       ),
                     ),
                   ),
@@ -198,6 +225,11 @@ class _ProfileState extends State<Profile> {
                         },
                         decoration: InputDecoration(
                           suffixIcon: const Icon(Icons.calendar_month),
+                          hintStyle: TextStyle(
+                            color: provider.isdarkmode
+                                ? Appcolors.lightcolor
+                                : null,
+                          ),
                           hintText: provider.dob.text.isEmpty
                               ? 'Date'
                               : provider.dob.text.substring(0, 10),

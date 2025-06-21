@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/provider/homeprovider.dart';
+import 'package:expense_tracker/constant/colors.dart';
 import 'package:expense_tracker/constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,8 @@ class _AddTransactionsState extends State<AddTransactions> {
     return Consumer<Homeprovider>(builder: (context, provider, _) {
       return SafeArea(
         child: Scaffold(
+          backgroundColor:
+              provider.isdarkmode ? Appcolors.darkcolor : Appcolors.white,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 28.0),
@@ -42,24 +45,34 @@ class _AddTransactionsState extends State<AddTransactions> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Image.asset(Appimage.cross),
+                        Image.asset(Appimage.cross,
+                            color: provider.isdarkmode
+                                ? Appcolors.lightcolor
+                                : Appcolors.black),
                       ],
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                  Text(
                     "Add Transactions",
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                    ),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: provider.isdarkmode
+                            ? Appcolors.lightcolor
+                            : Appcolors.black),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: provider.isdarkmode
+                            ? Appcolors.lightcolor
+                            : Appcolors.black),
                     controller: provider.amount,
                     textAlign: TextAlign.center,
                     textAlignVertical: TextAlignVertical.center,
@@ -83,6 +96,13 @@ class _AddTransactionsState extends State<AddTransactions> {
                     height: 20,
                   ),
                   DropdownButtonFormField(
+                      dropdownColor: provider.isdarkmode
+                          ? Appcolors.darkcolor
+                          : Appcolors.white,
+                      style: TextStyle(
+                          color: provider.isdarkmode
+                              ? Appcolors.lightcolor
+                              : null),
                       value: selectedValue,
                       decoration: InputDecoration(
                           prefixIconConstraints: const BoxConstraints(

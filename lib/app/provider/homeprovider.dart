@@ -16,6 +16,15 @@ class Homeprovider extends ChangeNotifier {
   String? userid;
   double? balance;
 
+  bool isdarkmode = false;
+
+  Future<void> toggledarkmode() async {
+    isdarkmode = !isdarkmode;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('mode', isdarkmode);
+    notifyListeners();
+  }
+
   double totalCredit = 0;
   double totalDebit = 0;
 
@@ -184,6 +193,7 @@ class Homeprovider extends ChangeNotifier {
   loadid() async {
     final prefs = await SharedPreferences.getInstance();
     userid = prefs.getString('id') ?? "";
+    isdarkmode = prefs.getBool('mode') ?? false;
     log(userid!);
     notifyListeners();
   }

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/provider/homeprovider.dart';
+import 'package:expense_tracker/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,19 +10,23 @@ class ManageBalance extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Homeprovider>(builder: (context, provider, _) {
       return Scaffold(
+        backgroundColor:
+            provider.isdarkmode ? Appcolors.darkcolor : Appcolors.white,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
+                Icon(
                   Icons.arrow_back,
                   size: 32,
+                  color: provider.isdarkmode ? Appcolors.lightcolor : null,
                 ),
-                const Text(
+                Text(
                   "Manage your Cash Balance",
                   style: TextStyle(
+                    color: provider.isdarkmode ? Appcolors.lightcolor : null,
                     fontSize: 35,
                     fontWeight: FontWeight.w500,
                   ),
@@ -29,9 +34,10 @@ class ManageBalance extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                const Text(
+                Text(
                   "Enter the allocated amount for this month",
                   style: TextStyle(
+                    color: provider.isdarkmode ? Appcolors.lightcolor : null,
                     fontSize: 16,
                   ),
                 ),
@@ -39,10 +45,10 @@ class ManageBalance extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: provider.isdarkmode ? Appcolors.lightcolor : null,
                   ),
                   keyboardType: TextInputType.number,
                   controller: provider.income1,
@@ -91,14 +97,21 @@ class ManageBalance extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text("Add additional income"),
+                Text(
+                  "Add additional income",
+                  style: TextStyle(
+                    color: provider.isdarkmode ? Appcolors.lightcolor : null,
+                    fontSize: 16,
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
+                    color: provider.isdarkmode ? Appcolors.lightcolor : null,
                   ),
                   keyboardType: TextInputType.number,
                   controller: provider.income2,

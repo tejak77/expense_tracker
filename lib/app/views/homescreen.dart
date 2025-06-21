@@ -37,7 +37,12 @@ class _HomescreenState extends State<Homescreen> {
       return provider.isloading
           ? const Center(child: CircularProgressIndicator())
           : Scaffold(
+              backgroundColor:
+                  provider.isdarkmode ? Appcolors.darkcolor : Colors.white,
               appBar: AppBar(
+                backgroundColor: provider.isdarkmode
+                    ? const Color.fromARGB(221, 0, 0, 43)
+                    : Colors.white,
                 automaticallyImplyLeading: false,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,16 +72,21 @@ class _HomescreenState extends State<Homescreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Welcome",
                               style: TextStyle(
-                                color: Colors.red,
+                                color: provider.isdarkmode
+                                    ? Colors.white
+                                    : Colors.black,
                                 fontSize: 12,
                               ),
                             ),
                             Text(
                               provider.name.text,
-                              style: const TextStyle(
+                              style: TextStyle(
+                                color: provider.isdarkmode
+                                    ? Colors.white
+                                    : Colors.black,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14,
                               ),
@@ -124,20 +134,24 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                         child: Column(
                           children: [
-                            const Text(
+                            Text(
                               "Total balance",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white,
+                                color: provider.isdarkmode
+                                    ? Appcolors.darkcolor
+                                    : Colors.white,
                               ),
                             ),
                             Text(
                               "\$ ${provider.balance ?? "0"}",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white,
+                                color: provider.isdarkmode
+                                    ? Appcolors.darkcolor
+                                    : Colors.white,
                               ),
                             ),
                             const SizedBox(
@@ -167,19 +181,23 @@ class _HomescreenState extends State<Homescreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
+                                        Text(
                                           "Income",
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
-                                            color: Colors.white,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.darkcolor
+                                                : Colors.white,
                                           ),
                                         ),
                                         Text(
                                           "\$ ${provider.totalCredit}",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.white,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.darkcolor
+                                                : Colors.white,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -208,19 +226,23 @@ class _HomescreenState extends State<Homescreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
+                                        Text(
                                           "Expenses",
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: Colors.white,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.darkcolor
+                                                : Colors.white,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                         Text(
                                           "\$ ${provider.totalDebit}",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.white,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.darkcolor
+                                                : Colors.white,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -237,7 +259,7 @@ class _HomescreenState extends State<Homescreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -245,6 +267,9 @@ class _HomescreenState extends State<Homescreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
+                            color: provider.isdarkmode
+                                ? Colors.white
+                                : Colors.black87,
                           ),
                         ),
                         Text(
@@ -252,6 +277,9 @@ class _HomescreenState extends State<Homescreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
+                            color: provider.isdarkmode
+                                ? Appcolors.white
+                                : Colors.black,
                           ),
                         ),
                       ],
@@ -297,10 +325,12 @@ class _HomescreenState extends State<Homescreen> {
                                       Text(
                                         provider
                                             .debittransactions[index].category,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                        ),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.lightcolor
+                                                : Colors.black),
                                       ),
                                     ],
                                   ),
@@ -309,17 +339,21 @@ class _HomescreenState extends State<Homescreen> {
                                     children: [
                                       Text(
                                         "\$ ${provider.debittransactions[index].amount}",
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                        ),
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.lightcolor
+                                                : Colors.black),
                                       ),
                                       Text(
                                         DateHelper.getRelativeDate(provider
                                             .debittransactions[index]
                                             .transactionDate),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                        ),
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: provider.isdarkmode
+                                                ? Appcolors.lightcolor
+                                                : Colors.black),
                                       ),
                                     ],
                                   )
