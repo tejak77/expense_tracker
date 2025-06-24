@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:expense_tracker/app/provider/homeprovider.dart';
 import 'package:expense_tracker/app/views/policyscreen.dart';
 import 'package:expense_tracker/app/views/profile.dart';
@@ -40,116 +41,120 @@ class Settingscreen extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              settingwidget(
-                  icon: Icons.person,
+        body: SlideInRight(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                settingwidget(
+                    icon: Icons.person,
+                    ontap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => const Profile()));
+                    },
+                    text: "My Profile"),
+                const SizedBox(
+                  height: 20,
+                ),
+                settingwidget(
+                  icon: Icons.privacy_tip_outlined,
                   ontap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Profile()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Policyscreen()));
                   },
-                  text: "My Profile"),
-              const SizedBox(
-                height: 20,
-              ),
-              settingwidget(
-                icon: Icons.privacy_tip_outlined,
-                ontap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Policyscreen()));
-                },
-                text: "Privacy Policy",
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.dark_mode,
-                    size: 30,
-                    color: provider.isdarkmode
-                        ? Appcolors.lightcolor
-                        : Appcolors.black,
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    "Dark Mode",
-                    style: TextStyle(
-                      color: provider.isdarkmode
-                          ? Appcolors.lightcolor
-                          : Appcolors.black,
-                      fontSize: 22,
-                    ),
-                  ),
-                  Spacer(),
-                  Switch(
-                    value: provider.isdarkmode,
-                    onChanged: (_) => provider.toggledarkmode(),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                            // backgroundColor: Colors.black,
-                            title: Text('Confirm Logout ?'),
-                            content: Text('Are you sure want to logout'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.of(ctx).pop(),
-                                child: Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  Navigator.of(ctx).pop();
-                                  final prefs =
-                                      await SharedPreferences.getInstance();
-                                  await prefs.clear();
-                                  context.go('/');
-                                },
-                                child: Text(
-                                  'Logout',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ));
-                },
-                child: Row(
+                  text: "Privacy Policy",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
                   children: [
-                    Image.asset(
-                      Appimage.logouticon,
-                      height: 30,
+                    Icon(
+                      Icons.dark_mode,
+                      size: 30,
                       color: provider.isdarkmode
                           ? Appcolors.lightcolor
                           : Appcolors.black,
                     ),
                     const SizedBox(
-                      width: 18,
+                      width: 16,
                     ),
-                    const Text(
-                      "Log Out",
+                    Text(
+                      "Dark Mode",
                       style: TextStyle(
+                        color: provider.isdarkmode
+                            ? Appcolors.lightcolor
+                            : Appcolors.black,
                         fontSize: 22,
-                        color: Colors.red,
                       ),
+                    ),
+                    const Spacer(),
+                    Switch(
+                      value: provider.isdarkmode,
+                      onChanged: (_) => provider.toggledarkmode(),
                     ),
                   ],
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                              // backgroundColor: Colors.black,
+                              title: const Text('Confirm Logout ?'),
+                              content: const Text('Are you sure want to logout'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(ctx).pop(),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(ctx).pop();
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.clear();
+                                    context.go('/');
+                                  },
+                                  child: const Text(
+                                    'Logout',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ));
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        Appimage.logouticon,
+                        height: 30,
+                        color: provider.isdarkmode
+                            ? Appcolors.lightcolor
+                            : Appcolors.black,
+                      ),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      const Text(
+                        "Log Out",
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       );

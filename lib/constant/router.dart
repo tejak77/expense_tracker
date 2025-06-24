@@ -4,14 +4,21 @@ import 'package:expense_tracker/app/views/manage_balance.dart';
 import 'package:expense_tracker/app/views/settingscreen.dart';
 import 'package:expense_tracker/authentication/views/loginscreen.dart';
 import 'package:expense_tracker/authentication/views/signupscreen.dart';
+import 'package:expense_tracker/authentication/views/splashscreen.dart';
 import 'package:expense_tracker/main.dart';
 import 'package:go_router/go_router.dart';
 
 GoRouter router(bool isloggedin) {
   return GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: isloggedin ? '/home' : '/',
+    initialLocation: '/splash',
     routes: [
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => Splashscreen(
+          isloggedin: isloggedin,
+        ),
+      ),
       GoRoute(
           path: '/',
           builder: (context, state) => const Loginscreen(),

@@ -74,7 +74,7 @@ class _ProfileState extends State<Profile> {
                                 : provider.profileimage!.length > 1
                                     ? NetworkImage(
                                         Apis.baseurl + provider.profileimage!)
-                                    : AssetImage(Appimage.profileicon),
+                                    : const AssetImage(Appimage.profileicon),
                           ),
                           Positioned(
                               right: 0,
@@ -99,7 +99,7 @@ class _ProfileState extends State<Profile> {
                     height: 20,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 14, bottom: 4),
+                    padding: const EdgeInsets.only(left: 14, bottom: 4),
                     child: Text(
                       "First Name:",
                       style: TextStyle(
@@ -128,7 +128,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 14, bottom: 4, top: 12),
+                    padding: const EdgeInsets.only(left: 14, bottom: 4, top: 12),
                     child: Text(
                       "Email id:",
                       style: TextStyle(
@@ -160,7 +160,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 14, bottom: 4, top: 12),
+                    padding: const EdgeInsets.only(left: 14, bottom: 4, top: 12),
                     child: Text(
                       "Mobile Number:",
                       style: TextStyle(
@@ -191,7 +191,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 14, bottom: 4, top: 12),
+                    padding: const EdgeInsets.only(left: 14, bottom: 4, top: 12),
                     child: Text(
                       "Date of Birth:",
                       style: TextStyle(

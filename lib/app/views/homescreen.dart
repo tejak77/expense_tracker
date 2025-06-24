@@ -62,7 +62,7 @@ class _HomescreenState extends State<Homescreen> {
                           : provider.profileimage!.length > 1
                               ? NetworkImage(
                                   Apis.baseurl + provider.profileimage!)
-                              : AssetImage(Appimage.profileicon),
+                              : const AssetImage(Appimage.profileicon),
                     ),
                   ),
                   const SizedBox(
@@ -298,7 +298,7 @@ class _HomescreenState extends State<Homescreen> {
                       return provider.isloading
                           ? Shimmer.fromColors(
                               child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 10),
+                                margin: const EdgeInsets.symmetric(vertical: 10),
                                 height: 70,
                                 width: 320,
                                 decoration: BoxDecoration(

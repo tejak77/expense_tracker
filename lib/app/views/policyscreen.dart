@@ -7,17 +7,17 @@ class Policyscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Privacy Policy"),
+        title: const Text("Privacy Policy"),
         centerTitle: true,
       ),
       body: Container(
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           border: Border.all(),
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -56,10 +56,10 @@ class pointswidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           height: 6,
           width: 6,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.black,
             shape: BoxShape.circle,
           ),
@@ -88,7 +88,6 @@ class headingwidget extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        
         fontWeight: FontWeight.bold,
         color: color,
       ),

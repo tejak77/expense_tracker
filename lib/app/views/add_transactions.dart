@@ -141,11 +141,11 @@ class _AddTransactionsState extends State<AddTransactions> {
                         });
                       }),
                   if (selectedValue == 'Other') ...[
-                    SizedBox(
+                    const SizedBox(
                       height: 14,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Enter custom category',
                         border: OutlineInputBorder(),
                       ),
