@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:expense_tracker/authentication/views/localauth.dart';
 import 'package:expense_tracker/constant/apis.dart';
 import 'package:expense_tracker/main.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class Authprovider extends ChangeNotifier {
     if (response.statusCode == 200) {
       final res = jsonDecode(response.body);
       if (res['status'] == true) {
+        authenticateUser();
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('id', res['user']['id'].toString());
         await prefs.setString('name', res['user']['name'].toString());
@@ -71,7 +73,6 @@ class Authprovider extends ChangeNotifier {
         await prefs.setString('dob', res['user']['dob'].toString());
         await prefs.setString('photo', res['user']['photo'].toString());
         await prefs.setBool('isloggedin', true);
-        navigatorKey.currentContext?.go('/home');
         phoneno.clear();
         password.clear();
       } else {

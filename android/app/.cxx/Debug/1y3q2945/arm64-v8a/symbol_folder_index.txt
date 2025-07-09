@@ -1,0 +1,1 @@
+C:\flutter_project\expense_tracker\build\app\intermediates\cxx\Debug\1y3q2945\obj\arm64-v8a

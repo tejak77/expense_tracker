@@ -51,9 +51,10 @@ class _HomescreenState extends State<Homescreen> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Profile()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Profile()),
+                      );
                     },
                     child: CircleAvatar(
                       radius: 20,
@@ -118,6 +119,8 @@ class _HomescreenState extends State<Homescreen> {
                 },
                 child: provider.isloading
                     ? Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.white,
                         child: Container(
                           height: 170,
                           width: 320,
@@ -125,9 +128,7 @@ class _HomescreenState extends State<Homescreen> {
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                        ),
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.white)
+                        ))
                     : Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 20),
@@ -297,17 +298,18 @@ class _HomescreenState extends State<Homescreen> {
                     itemBuilder: (context, index) {
                       return provider.isloading
                           ? Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.white,
                               child: Container(
-                                margin: const EdgeInsets.symmetric(vertical: 10),
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 height: 70,
                                 width: 320,
                                 decoration: BoxDecoration(
                                   color: Colors.grey,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                              ),
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.white)
+                              ))
                           : Container(
                               width: double.infinity,
                               margin: const EdgeInsets.symmetric(vertical: 10),
