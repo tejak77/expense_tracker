@@ -77,7 +77,8 @@ class Authprovider extends ChangeNotifier {
         password.clear();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(res['message'] ?? "Enter correct details")));
+          SnackBar(content: Text(res['message'] ?? "Enter correct details")),
+        );
       }
     }
     log(response.statusCode.toString());
