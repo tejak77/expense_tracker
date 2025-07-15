@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/views/add_transactions.dart';
 import 'package:expense_tracker/app/views/bottomnavbar.dart';
 import 'package:expense_tracker/app/views/manage_balance.dart';
-import 'package:expense_tracker/app/views/rowandcolumn.dart';
 import 'package:expense_tracker/app/views/settingscreen.dart';
 import 'package:expense_tracker/authentication/views/loginscreen.dart';
 import 'package:expense_tracker/authentication/views/signupscreen.dart';
@@ -31,7 +30,7 @@ GoRouter router(bool isloggedin) {
           ]),
       GoRoute(
           path: '/home',
-          builder: (context, state) => const Rowandcolumn(),
+          builder: (context, state) => const Bottomnavbar(),
           routes: [
             GoRoute(
               path: 'add',

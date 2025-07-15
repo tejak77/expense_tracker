@@ -12,7 +12,7 @@ class Rowandcolumn extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                color: Colors.grey,
+                color: Colors.blue,
               ),
             ),
             Expanded(
@@ -20,7 +20,7 @@ class Rowandcolumn extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       color: Colors.red,
                     ),
@@ -28,13 +28,13 @@ class Rowandcolumn extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Container(
-                      color: Colors.green,
+                      color: Colors.orange,
                     ),
                   ),
                   Expanded(
                     flex: 2,
                     child: Container(
-                      color: Colors.orange,
+                      color: Colors.yellow,
                     ),
                   ),
                 ],
